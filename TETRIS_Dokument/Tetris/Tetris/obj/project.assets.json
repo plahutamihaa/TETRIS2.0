@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Tetris\\Tetris\\Tetris\\Tetris.csproj",
+      "projectUniqueName": "C:\\Users\\Miha\\Documents\\GitHub\\TETRIS\\TETRIS_Dokument\\Tetris\\Tetris\\Tetris.csproj",
       "projectName": "Tetris",
-      "projectPath": "G:\\Tetris\\Tetris\\Tetris\\Tetris.csproj",
+      "projectPath": "C:\\Users\\Miha\\Documents\\GitHub\\TETRIS\\TETRIS_Dokument\\Tetris\\Tetris\\Tetris.csproj",
       "packagesPath": "C:\\Users\\Miha\\.nuget\\packages\\",
-      "outputPath": "G:\\Tetris\\Tetris\\Tetris\\obj\\",
+      "outputPath": "C:\\Users\\Miha\\Documents\\GitHub\\TETRIS\\TETRIS_Dokument\\Tetris\\Tetris\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Miha\\AppData\\Roaming\\NuGet\\NuGet.Config",

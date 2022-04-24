@@ -4,23 +4,13 @@
     {
         private Block currentBlock;
 
-        public Block CurrentBlock
+        public Block CurrentBlock       //lastnost CurrentBlock, ki je block s katerim ta trenutek opravljamo, oziroma sedanji block
         {
-            get => currentBlock;
+            get => currentBlock;    //pokliče/dobi vrednost, ki jo ime currentBlock, ter blockove lastnosti (rotacijo, pozicijo) resetira na začetno postavitev
             private set
             {
-                currentBlock = value;
+                currentBlock = value;   //s tem posodobimo currentBlock
                 currentBlock.Reset();  //po tem ko posodobimo sedajsnji block, se klice metoda reset, ki nastavi pravilno startno rotacijo in pozicijo
-
-                for (int i = 0; i < 2; i++)
-                {
-                    currentBlock.Premakni(1, 0);
-
-                    if(PrileganjeBlocka())
-                    {
-                        currentBlock.Premakni(-1, 0);
-                    }
-                }
             }
         }
 
@@ -37,8 +27,8 @@
         
         public GameState(bool zacetniMeni = true)
         {
-            IgralnaMreza = new IgralnaMreza(22, 10);
-            CakalniBlock = new CakalniBlock();
+            IgralnaMreza = new IgralnaMreza(22, 10);    //nastavimo velikost igralne mreže na željeno
+            CakalniBlock = new CakalniBlock();      //inicializiramo tudi CakalniBlock, ter ga spodaj uporabimo, da dobimo CurrentBlock, oziroma sedanji block
             CurrentBlock = CakalniBlock.ZamenjajNaslednjiBlock();
             ZačetniMenu = zacetniMeni;
             Level = 1;
@@ -46,21 +36,21 @@
 
         private bool PrileganjeBlocka()  //preveri ali je block v mozni poziciji ali ne, ali bo segel cez rob mreze ali drug block
         {
-            foreach (Pozicija p in CurrentBlock.TilePozicije())
+            foreach (Pozicija p in CurrentBlock.TilePozicije())     //preveri pozicijo vsake ploščice izmed tistih, ki sestavljajo block, če slučajno katera sega čez igralno mrežo ali drugo ploščico
             {
-                if (!IgralnaMreza.AliJeCelicaPrazna(p.Vrstica, p.Stolpec))
+                if (!IgralnaMreza.AliJeCelicaPrazna(p.Vrstica, p.Stolpec))      //če katera sega, vrnemo false
                 {
                     return false;
                 }
             }
-            return true;
+            return true;    //če pa nam uspe priti čez celoten loop, nam vrne true
         }
 
         public void ZvartiBlockDesno()  //zavrti block desno, ce pa ta pristane v nemogoci poziciji, pa se zavrti nazaj
         {
             CurrentBlock.ZavrtiDesno();
 
-            if(!PrileganjeBlocka())
+            if(!PrileganjeBlocka())     //prileganje preverja z zgoraj napisano metodo
             {
                 CurrentBlock.ZavrtiLevo();
             }
@@ -103,12 +93,12 @@
 
 
 
-        private bool JeIgraKoncana()
+        private bool JeIgraKoncana()    //vrne true, če katera izmed zgornjih treh vrstic ni prazna in smo igro izgubili
         {
             return !(IgralnaMreza.AliJeVrsticaNedokoncana(0) && IgralnaMreza.AliJeVrsticaNedokoncana(1) && IgralnaMreza.AliJeVrsticaNedokoncana(2));
         }
         
-        public void JeIgraUstavljena()
+        public void JeIgraUstavljena()      
         {
             UstavitevIgre = true;
         }
@@ -119,14 +109,13 @@
         }
         
 
-        private void PostaviBlock()
+        private void PostaviBlock()     //metoda je klicana, v primeru da block ne more biti premaknjen dol, in izvede naslednje stvari
         {
-            foreach (Pozicija p in CurrentBlock.TilePozicije())
+            foreach (Pozicija p in CurrentBlock.TilePozicije())     //preleti čez vse pozicije ploščic za uporabljen block in nastavi na tiste od CurrentBlock-a, oz trenutnega blocka
             {
                 IgralnaMreza[p.Vrstica, p.Stolpec] = CurrentBlock.Id;
             }
 
-            
 
             int SteviloTock = IgralnaMreza.IzbrisiPolneVrstice();               //zanka ki preveri koliko vrstic se je izbrisalo in na podlagi tega doloci za koliko se bo score povecal
             switch (SteviloTock)
@@ -138,11 +127,10 @@
             }
             Level = PocisceneVrstice / 10 + 1;                                   //v PocisceneVrstice se zapisuje koliko vrstic smo ze pocistili, vsakih 10 vrstic pa se nam poviša level
 
-
             
             if (JeIgraKoncana() == true)
             {
-                KonecIgre = true;
+                KonecIgre = true;       //če je igra končana, nastavimo lastnost KonecIgre na true
             }
             else if (UstavitevIgre == true)
             {
@@ -150,15 +138,12 @@
             }
             else
             {
-                CurrentBlock = CakalniBlock.ZamenjajNaslednjiBlock();
-            }
-            
-
-            
-            
+                CurrentBlock = CakalniBlock.ZamenjajNaslednjiBlock();   //če pa igra ni končana ali ustavljena, pa samo zamenjamo trenutni block za cakalnega
+            }        
         }
 
-        public void PremakniBlockDol()
+
+        public void PremakniBlockDol()      //deluje na enak način kot ostale metode za premikanje, le da ta, če block ne more biti premaknjen dol, še pokliče metodo PostaviBlock
         {
             CurrentBlock.Premakni(1, 0);
 
@@ -169,7 +154,7 @@
             }
         }
 
-        private int TileDropDistance(Pozicija p)  //metoda ugotovi za koliko vrstic se lahko posamezna kocka lika premakne navzdol
+        private int TileDropDistance(Pozicija p)  //metoda ugotovi za koliko vrstic se lahko posamezna kocka lika premakne navzdol in vzamemo najmanjse število, saj mora veljati za cel lik
         {
             int drop = 0;
 
@@ -184,14 +169,14 @@
         {
             int drop = IgralnaMreza.Vrstice;
 
-            foreach (Pozicija p in CurrentBlock.TilePozicije())
+            foreach (Pozicija p in CurrentBlock.TilePozicije()) //metoda ugotovi za koliko vrstic se lahko posamezna kocka lika premakne navzdol in vzamemo najmanjse število, saj mora veljati za cel lik
             {
                 drop = System.Math.Min(drop, TileDropDistance(p));
             }
-            return drop;
+            return drop;        //vrne število, za kolikor se lahko cel block maximalno premakne, torej za koliko se lahko premaknejo vse ploščice, brez da bi katera šla čez karkoli
         }
 
-        public void DropBlock()
+        public void DropBlock()     //metoda, ki s pomočjo zgornjih dveh, premakne block do dol
         {
             CurrentBlock.Premakni(BlockDropDistance(), 0);
             PostaviBlock();

@@ -33,6 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\IKONA.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Background.png" />
     <Resource Include="Assets\Black_OPACITY.png" />
     <Resource Include="Assets\Black_OPACITY76 - Copy.png" />

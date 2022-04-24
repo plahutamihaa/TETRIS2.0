@@ -39,13 +39,13 @@
         </Viewbox>
 
 
-
         <TextBlock x:Name="ScoreText"
                    Grid.Row="1"
                    Grid.Column="2"
                    Text="Točke: "
                    TextAlignment="Center" Margin="5,92,10,10"/>
 
+            
         <TextBlock x:Name="RekordText"
                    Grid.Row="1"
                    Grid.Column="2"
@@ -131,7 +131,6 @@
               Grid.RowSpan="2"
               Grid.ColumnSpan="3"
               Visibility="Hidden">
-            <Image Source="/Assets/TetrisLOGO.png"/>
             <StackPanel HorizontalAlignment="Center"
                           VerticalAlignment="Center">
                 <TextBlock Text="IGRA USTAVLJENA"
@@ -172,4 +171,5 @@
         </Grid>
 
     </Grid>
+        
 </Window>
